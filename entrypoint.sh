@@ -40,7 +40,7 @@ cd build
 touch .nojekyll
 
 # Is this a regular repo or an org.github.io type of repo
-case "${GITHUB_REPOSITORY}" in
+case "${REPOSITORY_NAME}" in
   *.github.io) remote_branch="master" ;;
   *)           remote_branch="gh-pages" ;;
 esac
