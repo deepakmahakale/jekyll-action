@@ -24,6 +24,13 @@ else
   echo "::debug ::Resolved ${JEKYLL_SRC} as a source directory"
 fi
 
+if [ -n "${JEKYLL_REPOSITORY}" ]; then
+  REPOSITORY_NAME = JEKYLL_REPOSITORY
+  echo "::debug ::Using parameter value ${REPOSITORY_NAME} as a source directory"
+else
+  REPOSITORY_NAME = GITHUB_REPOSITORY
+fi
+
 JEKYLL_ENV=production bundle exec jekyll build -s ${JEKYLL_SRC} -d build
 echo "Jekyll build done"
 
@@ -43,10 +50,10 @@ if [ "${GITHUB_REF}" = "refs/heads/${remote_branch}" ]; then
   exit 1
 fi
 
-echo "Publishing to ${GITHUB_REPOSITORY} on branch ${remote_branch}"
-echo "::debug ::Pushing to https://${JEKYLL_PAT}@github.com/${GITHUB_REPOSITORY}.git"
+echo "Publishing to ${REPOSITORY_NAME} on branch ${remote_branch}"
+echo "::debug ::Pushing to https://${JEKYLL_PAT}@github.com/${REPOSITORY_NAME}.git"
 
-remote_repo="https://${JEKYLL_PAT}@github.com/${GITHUB_REPOSITORY}.git" && \
+remote_repo="https://${JEKYLL_PAT}@github.com/${REPOSITORY_NAME}.git" && \
 git init && \
 git config user.name "${GITHUB_ACTOR}" && \
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com" && \
