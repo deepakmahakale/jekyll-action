@@ -25,10 +25,10 @@ else
 fi
 
 if [ -n "${JEKYLL_REPOSITORY}" ]; then
-  REPOSITORY_NAME = JEKYLL_REPOSITORY
+  REPOSITORY_NAME=${JEKYLL_REPOSITORY}
   echo "::debug ::Using parameter value ${REPOSITORY_NAME} as a source directory"
 else
-  REPOSITORY_NAME = GITHUB_REPOSITORY
+  REPOSITORY_NAME=${GITHUB_REPOSITORY}
 fi
 
 JEKYLL_ENV=production bundle exec jekyll build -s ${JEKYLL_SRC} -d build
