@@ -1,6 +1,6 @@
 FROM ruby:2.7-alpine
 
-LABEL version="2.0.1"
+LABEL version="2.0.4"
 LABEL repository="https://github.com/deepakmahakale/jekyll-action"
 LABEL homepage="https://github.com/deepakmahakale/jekyll-action"
 LABEL maintainer="Deepak Mahakale <deepakmahakale@gmail.com>"
