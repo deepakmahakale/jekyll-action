@@ -43,7 +43,7 @@ asciidoctor:
 Note that we also renamed `index.html` to `index.adoc` and modified this file accordingly in order to leverage AsciiDoc.
 
 ### Use the action
-Use the `helaili/jekyll-action@master` action in your workflow file. It needs access to a `JEKYLL_PAT` secret set with a Personal Access Token (needs ` public_repo` scope). The directory where the Jekyll site lives will be detected (based on the location of `_config.yml`) but you can also explicitly set this directory by setting the `jekyll_src` parameter (`sample_site` for us). The `SRC` environment variable is also supported for backward compatibilty but it is deprecated.
+Use the `deepakmahakale/jekyll-action@master` action in your workflow file. It needs access to a `JEKYLL_PAT` secret set with a Personal Access Token (needs `public_repo` scope). The directory where the Jekyll site lives will be detected (based on the location of `_config.yml`) but you can also explicitly set this directory by setting the `jekyll_src` parameter (`sample_site` for us). The `SRC` environment variable is also supported for backward compatibilty but it is deprecated. The destination repository `JEKYLL_REPOSITORY` if you want to publish on some other repository.
 
 Use the `actions/cache` action in the workflow as well, to shorten build times and decrease load on GitHub's servers
 
@@ -68,12 +68,19 @@ jobs:
           ${{ runner.os }}-gems-
 
     # Standard usage
-    - uses:  helaili/jekyll-action@2.0.1
+    - uses:  deepakmahakale/jekyll-action@2.0.1
       env:
         JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
+        
+    # Specify destination repository in case you need to deploy somewhere else
+    # NOTE: Make sure the Personal Access Token has access to the destination repository 
+    - uses:  deepakmahakale/jekyll-action@2.0.1
+      env:
+        JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
+        JEKYLL_REPOSITORY: deepakmahakale/deepakmahakale.github.io
     
     # Specify the Jekyll source location as a parameter
-    - uses: helaili/jekyll-action@2.0.1
+    - uses: deepakmahakale/jekyll-action@2.0.1
       env:
         JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
       with:
@@ -82,11 +89,11 @@ jobs:
 
 Upon successful execution, the GitHub Pages publishing will happen automatically and will be listed on the *_environment_* tab of your repository. 
 
-![image](https://user-images.githubusercontent.com/2787414/51083469-31e29700-171b-11e9-8f10-8c02dd485f83.png)
+![image](https://user-images.githubusercontent.com/14993828/85172725-47081180-b28f-11ea-9b8a-77670238eba0.png)
 
 Just click on the *_View deployment_* button of the `github-pages` environment to navigate to your GitHub Pages site.
 
-![image](https://user-images.githubusercontent.com/2787414/51083411-188d1b00-171a-11e9-9a25-f8b06f33053e.png)
+![image](https://user-images.githubusercontent.com/14993828/85172806-6e5ede80-b28f-11ea-9f5a-f19e30bd6ff3.png)
 
 ### Known Limitation
 Publishing of the GitHub pages can fail when using the `GITHUB_TOKEN` secret as the value of the `JEKYLL_PAT` env variable, as opposed to a Personal Access Token set as a secret. But it might work too :smile: 
